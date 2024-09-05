@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora y Gráfico de Inversión</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container1">
+        
+        <h1>Calculadora de Inversión</h1>
+        
+        <div class="slidecontainer2"> 
+            <input type="range" min="1000" max="10000" step="500" value="1000" class="slider" id="myRange" height= "2"> 
+            <label>Monto de dinero: <span id="valor"></span></label><br> 
+          </div>
+          
+        <!-- <label for="amount">Monto de dinero:</label>
+        <input type="number" id="amount" placeholder="Ingrese el monto" /> -->
+
+        <label for="return">Beneficio esperado 20(%):</label>
+        <!-- <input type="number" id="return" placeholder="Ingrese el beneficio esperado" /> -->
+
+        <button onclick="calculateInvestment()">Calcular</button>
+        <button onclick="calculateInvestmentDolar()">Calcular Dolar</button>
+
+        <div id="result"></div>
+    </div>
+
+    <div class="container2">
+        <h1>Gráfico de Ganancias a lo Largo del Tiempo</h1>
+        <canvas id="investmentChart"></canvas>
+    </div>
+
+    <!-- Incluye Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Datos iniciales del gráfico
+        const labels = ['01/01/2024', '01/02/2024', '01/03/2024', '01/04/2024', '01/05/2024'];
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Ganancia ($)',
+                    data: [], // Inicialmente vacío, se llenará después de los cálculos
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    fill: true,
+                }
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Fecha'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Valor'
+                        }
+                    }
+                }
+            }
+        };
+
+        let investmentChart;
+
+        window.onload = function() {
+            const ctx = document.getElementById('investmentChart').getContext('2d');
+            investmentChart = new Chart(ctx, config);
+        };
+
+        function calculateInvestment() {
+            // Obtener los valores de los campos
+            var amount = parseFloat(document.getElementById("myRange").value);
+            var benefit = 20;
+
+            // Validar entradas
+            if (isNaN(amount)  || isNaN(benefit) || amount <= 0 ||  benefit < 0) {
+                document.getElementById('result').innerHTML = '<p style="color: red;">Por favor, ingrese valores válidos.</p>';
+                return;
+            }
+
+            // Calcular el beneficio y el riesgo
+            var calculatedBenefit = amount * (benefit / 100);
+            
+            // Mostrar resultados
+            document.getElementById('result').innerHTML = `
+                <p><strong>Beneficio esperado:</strong> $${calculatedBenefit.toFixed(2)}</p>
+            `;
+
+            for(i=0;i < 5; i++){
+            // Actualizar el gráfico con los nuevos datos
+            data.datasets[0].data.push(Math. floor(amount));
+            investmentChart.update();
+
+            var calculatedBenefit = amount * (benefit / 100);
+            amount = amount+calculatedBenefit
+            }
+        }
+
+        function calculateInvestmentDolar() {
+            // Obtener los valores de los campos
+            var amount = parseFloat(document.getElementById("myRange").value);
+            var amountDolar = amount * 0.0010;
+            var benefit = 20;
+
+            // Validar entradas
+            if (isNaN(amountDolar)  || isNaN(benefit) || amountDolar <= 0 ||  benefit < 0) {
+                document.getElementById('result').innerHTML = '<p style="color: red;">Por favor, ingrese valores válidos.</p>';
+                return;
+            }
+
+            // Calcular el beneficio y el riesgo
+            var calculatedBenefit = amountDolar * (benefit / 100);
+            
+            // Mostrar resultados
+            document.getElementById('result').innerHTML = `
+                <p><strong>Beneficio esperado:</strong> $${calculatedBenefit.toFixed(2)}</p>
+            `;
+
+            for(i=0;i < 5; i++){
+            // Actualizar el gráfico con los nuevos datos
+            data.datasets[0].data.push(amountDolar);
+            investmentChart.update();
+
+            var calculatedBenefit = amountDolar * (benefit / 100);
+            amountDolar = amountDolar+calculatedBenefit
+            }
+        }
+
+
+        var slider = document.getElementById("myRange"),
+        output = document.getElementById("valor");
+        output.innerHTML = slider.value; 
+
+        slider.oninput = function Calculate7(){
+        output.innerHTML = this.value;
+        try{
+            var followers7 = document.getElementById("myRange"),
+            followersReached7 = followers7 * 2,
+            averageSale7= followersReached7 * 2,
+            estimateEarning7= averageSale7 * 2;
+  
+            document.slidecontainer2.sum7.value = estimateEarning7;
+        } catch (e){}
+}
+    </script>
+</body>
+</html>
