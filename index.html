@@ -22,8 +22,12 @@
         <label for="return">Beneficio esperado 20(%):</label>
         <!-- <input type="number" id="return" placeholder="Ingrese el beneficio esperado" /> -->
 
-        <button onclick="calculateInvestment()">Calcular</button>
-        <button onclick="calculateInvestmentDolar()">Calcular Dolar</button>
+        <div class="switch-button">
+            <input type="checkbox" id="switchButton" onclick="switchLabel()" class="switch-button__checkbox">
+            <label for="switch-label" class="switch-button__label" id="dinero">Peso</label>
+        </div>
+
+        <button id="calculate" onclick="calculateInvestment()">Calcular</button>
 
         <div id="result"></div>
     </div>
@@ -36,12 +40,12 @@
     <!-- Incluye Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+
         // Datos iniciales del gráfico
         const labels = ['01/01/2024', '01/02/2024', '01/03/2024', '01/04/2024', '01/05/2024'];
         const data = {
             labels: labels,
-            datasets: [
-                {
+            datasets: [{
                     label: 'Ganancia ($)',
                     data: [], // Inicialmente vacío, se llenará después de los cálculos
                     borderColor: 'rgba(153, 102, 255, 1)',
@@ -50,7 +54,6 @@
                 }
             ]
         };
-
         const config = {
             type: 'line',
             data: data,
@@ -73,7 +76,6 @@
                 }
             }
         };
-
         let investmentChart;
 
         window.onload = function() {
@@ -81,11 +83,37 @@
             investmentChart = new Chart(ctx, config);
         };
 
+        function switchLabel(valor){
+            var checkbox = document.getElementById("switchButton");
+            var label = document.getElementById("dinero");
+            if (checkbox.checked == false) {
+                label.innerHTML = "Peso";
+                valor = 1;
+                for(i=0;i < 5; i++){
+                data.datasets[0].data.pop();
+                }
+                investmentChart.update();
+
+            } else if(checkbox.checked == true){
+                label.innerHTML = "Dolar";
+                valor = 0.0010;
+                for(i=0;i < 5; i++){
+                data.datasets[0].data.pop();
+                }
+                investmentChart.update();
+                
+            }      
+            return valor;
+        }
+
         function calculateInvestment() {
             // Obtener los valores de los campos
             var amount = parseFloat(document.getElementById("myRange").value);
             var benefit = 20;
-
+            var valor = 0;
+            real =switchLabel(valor);
+            
+            var amountDinner = amount * real;
             // Validar entradas
             if (isNaN(amount)  || isNaN(benefit) || amount <= 0 ||  benefit < 0) {
                 document.getElementById('result').innerHTML = '<p style="color: red;">Por favor, ingrese valores válidos.</p>';
@@ -93,7 +121,7 @@
             }
 
             // Calcular el beneficio y el riesgo
-            var calculatedBenefit = amount * (benefit / 100);
+            var calculatedBenefit = amountDinner * (benefit / 100);
             
             // Mostrar resultados
             document.getElementById('result').innerHTML = `
@@ -102,45 +130,21 @@
 
             for(i=0;i < 5; i++){
             // Actualizar el gráfico con los nuevos datos
-            data.datasets[0].data.push(Math. floor(amount));
+            if(real == 1){
+                data.datasets[0].data.push(Math. floor(amountDinner));
+            }else{
+                data.datasets[0].data.push(amountDinner);
+            }
             investmentChart.update();
 
-            var calculatedBenefit = amount * (benefit / 100);
-            amount = amount+calculatedBenefit
-            }
-        }
-
-        function calculateInvestmentDolar() {
-            // Obtener los valores de los campos
-            var amount = parseFloat(document.getElementById("myRange").value);
-            var amountDolar = amount * 0.0010;
-            var benefit = 20;
-
-            // Validar entradas
-            if (isNaN(amountDolar)  || isNaN(benefit) || amountDolar <= 0 ||  benefit < 0) {
-                document.getElementById('result').innerHTML = '<p style="color: red;">Por favor, ingrese valores válidos.</p>';
-                return;
-            }
-
-            // Calcular el beneficio y el riesgo
-            var calculatedBenefit = amountDolar * (benefit / 100);
-            
-            // Mostrar resultados
-            document.getElementById('result').innerHTML = `
-                <p><strong>Beneficio esperado:</strong> $${calculatedBenefit.toFixed(2)}</p>
-            `;
-
-            for(i=0;i < 5; i++){
-            // Actualizar el gráfico con los nuevos datos
-            data.datasets[0].data.push(amountDolar);
-            investmentChart.update();
-
-            var calculatedBenefit = amountDolar * (benefit / 100);
-            amountDolar = amountDolar+calculatedBenefit
+            var calculatedBenefit = amountDinner * (benefit / 100);
+            amountDinner = amountDinner+calculatedBenefit
             }
         }
 
 
+        //slider value
+        
         var slider = document.getElementById("myRange"),
         output = document.getElementById("valor");
         output.innerHTML = slider.value; 
