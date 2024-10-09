@@ -90,13 +90,11 @@ class MySQLProjectRepository implements ProjectRepository {
             ],
         );
         return project;
-/*************  ✨ Codeium Command ⭐  *************/
-/******  1d481472-d489-4828-b458-dee03c05380e  *******/    }
+    }
 
     async delete(projectId: ProjectId): Promise<void> {
         await MySQLPool.execute("DELETE FROM project WHERE idproject = ?", [
             projectId,
-     */
         ]);
     }
 
@@ -117,4 +115,4 @@ class MySQLProjectRepository implements ProjectRepository {
     }
 }
 
-export default MySQLProjectRepository
+export default MySQLProjectRepository;
