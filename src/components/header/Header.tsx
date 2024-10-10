@@ -14,52 +14,50 @@ export default function Header() {
 
 function HeaderNavigation() {
     return (
-        <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-            <Link
-                href="#"
-                className="flex items-center gap-2 text-lg font-bold md:text-base leading-none"
-            >
-                BuildInvest
-            </Link>
-            <Link
-                href="#"
-                className="text-foreground transition-colors hover:text-foreground leading-none"
-            >
-                Dashboard
-            </Link>
-            <Link
-                href="#"
-                className="text-foreground transition-colors hover:text-foreground leading-none"
-            >
-                Orders
-            </Link>
-            <Link
-                href="#"
-                className="text-foreground transition-colors hover:text-foreground leading-none"
-            >
-                Products
-            </Link>
-            <Link
-                href="#"
-                className="text-foreground transition-colors hover:text-foreground leading-none"
-            >
-                Customers
-            </Link>
-            <Link
-                href="#"
-                className="text-foreground transition-colors hover:text-foreground leading-none"
-            >
-                Settings
-            </Link>
+        <nav className="hidden md:flex justify-between items-center w-full">
+            <div className="flex gap-6 text-lg font-medium md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+                <Link
+                    href="/"
+                    className="flex items-center gap-2 text-lg font-bold md:text-base leading-none"
+                >
+                    BuildInvest
+                </Link>
+                <Link
+                    href="#"
+                    className="text-foreground transition-colors hover:text-foreground leading-none"
+                >
+                    Proyectos
+                </Link>
+                <Link
+                    href="#"
+                    className="text-foreground transition-colors hover:text-foreground leading-none"
+                >
+                    Sobre nosotros
+                </Link>
+                <Link
+                    href="#"
+                    className="text-foreground transition-colors hover:text-foreground leading-none"
+                >
+                    Preguntas frecuentes
+                </Link>
+            </div>
+            <div className="flex gap-4">
+                <Button asChild variant={"outline"}>
+                    <Link href="/iniciar-sesion">Iniciar sesión</Link>
+                </Button>
+                <Button asChild>
+                    <Link href="/crear-cuenta">Crear cuenta</Link>
+                </Button>
+            </div>
         </nav>
     );
 }
 
 function ResponsiveHeaderNavigation() {
     return (
-        <div className="flex justify-between items-center w-full md:hidden">
+        <nav className="flex justify-between items-center w-full md:hidden">
             <Link
-                href="#"
+                href="/"
                 className="flex items-center gap-2 text-base font-bold md:text-base leading-none"
             >
                 BuildInvest
@@ -76,43 +74,38 @@ function ResponsiveHeaderNavigation() {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="right">
-                    <nav className="grid gap-6 text-lg font-medium">
+                    <div className="grid gap-6 text-lg font-medium">
                         <Link
                             href="#"
-                            className="flex items-center gap-2 text-lg font-semibold"
+                            className="text-foreground hover:text-foreground"
                         >
-                            <span className="sr-only">Acme Inc</span>
+                            Proyectos
                         </Link>
                         <Link
                             href="#"
                             className="text-foreground hover:text-foreground"
                         >
-                            Dashboard
+                            Sobre nosotros
                         </Link>
                         <Link
                             href="#"
                             className="text-foreground hover:text-foreground"
                         >
-                            Orders
+                            Preguntas frecuentes
                         </Link>
-                        <Link
-                            href="#"
-                            className="text-foreground hover:text-foreground"
-                        >
-                            Products
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-foreground hover:text-foreground"
-                        >
-                            Customers
-                        </Link>
-                        <Link href="#" className="hover:text-foreground">
-                            Settings
-                        </Link>
-                    </nav>
+                        <div className="flex flex-col mt-4 gap-4">
+                            <Button asChild variant={"outline"}>
+                                <Link href="/iniciar-sesion">
+                                    Iniciar sesión
+                                </Link>
+                            </Button>
+                            <Button asChild>
+                                <Link href="/crear-cuenta">Crear cuenta</Link>
+                            </Button>
+                        </div>
+                    </div>
                 </SheetContent>
             </Sheet>
-        </div>
+        </nav>
     );
 }
