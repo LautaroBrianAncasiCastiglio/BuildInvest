@@ -1,5 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import {
+    Sheet,
+    SheetTrigger,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetDescription,
+    SheetClose,
+} from "@/components/ui/sheet";
 import Link from "next/link";
 import { LuMenu } from "react-icons/lu";
 
@@ -70,39 +78,53 @@ function ResponsiveHeaderNavigation() {
                         className="shrink-0 md:hidden"
                     >
                         <LuMenu size={18} />
-                        <span className="sr-only">Toggle navigation menu</span>
+                        <span className="sr-only">
+                            Abrir menú de navegación
+                        </span>
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="right">
-                    <div className="grid gap-6 text-lg font-medium">
-                        <Link
-                            href="#"
-                            className="text-foreground hover:text-foreground"
-                        >
-                            Proyectos
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-foreground hover:text-foreground"
-                        >
-                            Sobre nosotros
-                        </Link>
-                        <Link
-                            href="#"
-                            className="text-foreground hover:text-foreground"
-                        >
-                            Preguntas frecuentes
-                        </Link>
-                        <div className="flex flex-col mt-4 gap-4">
+                    <SheetHeader>
+                        <SheetTitle>BuildInvest</SheetTitle>
+                        <SheetDescription>Menu de navegación</SheetDescription>
+                    </SheetHeader>
+                    <div className="flex flex-col justify-end h-full gap-4 py-16 text-base font-medium">
+                        <SheetClose asChild>
+                            <Link
+                                href="#"
+                                className="text-foreground hover:text-foreground py-1"
+                            >
+                                Proyectos
+                            </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                            <Link
+                                href="#"
+                                className="text-foreground hover:text-foreground py-1"
+                            >
+                                Sobre nosotros
+                            </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                            <Link
+                                href="#"
+                                className="text-foreground hover:text-foreground py-1"
+                            >
+                                Preguntas frecuentes
+                            </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
                             <Button asChild variant={"outline"}>
                                 <Link href="/iniciar-sesion">
                                     Iniciar sesión
                                 </Link>
                             </Button>
+                        </SheetClose>
+                        <SheetClose asChild>
                             <Button asChild>
                                 <Link href="/crear-cuenta">Crear cuenta</Link>
                             </Button>
-                        </div>
+                        </SheetClose>
                     </div>
                 </SheetContent>
             </Sheet>
