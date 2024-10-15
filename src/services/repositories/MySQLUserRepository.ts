@@ -25,7 +25,7 @@ class MySQLUserRepository implements UserRepository {
     async create(user: User): Promise<User> {
         try {
             await MySQLPool.execute(
-                "INSERT INTO user (`username`, `email`, `password`) VALUES (?, ?, ?)",
+                "INSERT INTO users (`username`, `email`, `password`) VALUES (?, ?, ?)",
                 [user.username, user.email, user.password],
             );
             return user;
@@ -43,7 +43,7 @@ class MySQLUserRepository implements UserRepository {
     async findAll(): Promise<User[]> {
         try {
             const [rows] = await MySQLPool.execute<DBUser[]>(
-                "SELECT `username`, `email`, `password`, `create_time` FROM user",
+                "SELECT `username`, `email`, `password`, `create_time` FROM users",
             );
             return rows.map((row) => ({
                 username: row.username,
@@ -66,7 +66,7 @@ class MySQLUserRepository implements UserRepository {
     async findOne(email: UserEmail): Promise<User | null> {
         try {
             const [row] = await MySQLPool.execute<DBUser[]>(
-                "SELECT `username`, `email`, `password`, `create_time` FROM user WHERE `email` = ? LIMIT 1",
+                "SELECT `username`, `email`, `password`, `create_time` FROM users WHERE `email` = ? LIMIT 1",
                 [email],
             );
             const [foundUser] = row;
@@ -96,7 +96,7 @@ class MySQLUserRepository implements UserRepository {
     async update(user: User): Promise<User> {
         try {
             await MySQLPool.execute(
-                "UPDATE user SET `username` = ?, `password` = ? WHERE `email` = ?",
+                "UPDATE users SET `username` = ?, `password` = ? WHERE `email` = ?",
                 [user.username, user.password, user.email],
             );
             return user;
@@ -112,7 +112,7 @@ class MySQLUserRepository implements UserRepository {
      */
     async delete(email: UserEmail): Promise<void> {
         try {
-            await MySQLPool.execute("DELETE FROM user WHERE `email` = ?", [
+            await MySQLPool.execute("DELETE FROM users WHERE `email` = ?", [
                 email,
             ]);
         } catch (err) {
