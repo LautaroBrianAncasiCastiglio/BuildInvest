@@ -1,6 +1,9 @@
 "use server";
 
 import type { RegisterFormState } from "@/components/register/RegisterForm";
+import type UserRepository from "@/models/UserRepository";
+import PasswordEncrypter from "@/services/PasswordEncrypter";
+import MySQLUserRepository from "@/services/repositories/MySQLUserRepository";
 import {
     UserEmailSchema,
     UserPasswordSchema,
@@ -33,18 +36,18 @@ export async function registerUser(
             };
         }
 
-        // const encryptedPassword = await PasswordEncrypter.encrypt(
-        //     validatedPassword.data,
-        // );
+        const encryptedPassword = await PasswordEncrypter.encrypt(
+            validatedPassword.data,
+        );
 
-        // const userRepository: UserRepository = new MySQLUserRepository();
+        const userRepository: UserRepository = new MySQLUserRepository();
 
-        // await userRepository.create({
-        //     email: validatedEmail.data,
-        //     password: encryptedPassword,
-        //     username: "",
-        //     createdAt: new Date(),
-        // });
+        await userRepository.create({
+            email: validatedEmail.data,
+            password: encryptedPassword,
+            username: "",
+            createdAt: new Date(),
+        });
 
         await SessionManager.createSession(validatedEmail.data);
     } catch (e) {
