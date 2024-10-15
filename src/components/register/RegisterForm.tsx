@@ -4,10 +4,11 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useFormState, useFormStatus } from "react-dom";
 import Link from "next/link";
+import { registerUser } from "@/services/actions/registerUser";
 
 function RegisterForm() {
     const [state, formAction] = useFormState<RegisterFormState, FormData>(
-        () => {},
+        registerUser,
         {
             errors: {},
         },
@@ -41,8 +42,6 @@ function EmailField(props: { error?: string }) {
                 id="email"
                 name="email"
                 placeholder="Por ejemplo: lgaieta@example.com"
-                minLength={6}
-                maxLength={16}
                 required
             />
             {props.error && (
