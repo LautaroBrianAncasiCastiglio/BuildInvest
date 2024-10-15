@@ -41,6 +41,7 @@ function EmailField(props: { error?: string }) {
             <Input
                 id="email"
                 name="email"
+                type="email"
                 placeholder="Por ejemplo: lgaieta@example.com"
                 required
             />
