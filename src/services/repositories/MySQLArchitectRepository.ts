@@ -1,4 +1,4 @@
-import type { ArchitectId } from "@/models/Architect";
+import type { ArchitectDni, ArchitectId } from "@/models/Architect";
 import type Architect from "@/models/Architect";
 import type ArchitectRepository from "@/models/ArchitectRepository";
 import MySQLPool from "@/services/MySQLPool";
@@ -90,6 +90,26 @@ class MySQLArchitectRepository implements ArchitectRepository {
     }
 
     /**
+     * Find an architect by their DNI.
+     *
+     * @param dni The DNI of the architect to find.
+     * @returns The architect if found, or null if not found.
+     * @throws If the underlying MySQL operation fails.
+     */
+    async findByDni(dni: ArchitectDni): Promise<Architect | null> {
+        const [dbArchitectList] = await MySQLPool.execute<DBArchitect[]>(
+            "SELECT idarchitect, complete_name, dni, n_matricula, email FROM architect WHERE dni = ? LIMIT 1",
+            [dni],
+        );
+
+        const foundArchitect = dbArchitectList[0];
+
+        if (!foundArchitect) return null;
+
+        return this.adapt(foundArchitect);
+    }
+
+    /**
      * Update an architect in the database.
      *
      * @param architect The architect with the updates. The `id` property must be the same as the one in the database.
@@ -120,6 +140,16 @@ class MySQLArchitectRepository implements ArchitectRepository {
         await MySQLPool.execute("DELETE FROM architect WHERE idarchitect = ?", [
             id,
         ]);
+    }
+
+    private adapt(architect: DBArchitect): Architect {
+        return {
+            id: architect.idarchitect,
+            name: architect.complete_name,
+            dni: architect.dni,
+            registrationNumber: architect.n_matricula,
+            email: architect.email,
+        };
     }
 }
 

@@ -2,15 +2,29 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useFormStatus } from "react-dom";
+import { registerArchitect } from "@/services/actions/registerArchitect";
+import { useFormState, useFormStatus } from "react-dom";
 
 function NewArchitectForm() {
+    const [state, formAction] = useFormState<NewArchitectFormState, FormData>(
+        registerArchitect,
+        {
+            errors: {},
+        },
+    );
+    const { errors } = state;
+
     return (
-        <form className="grid gap-5 w-full max-w-sm">
-            <DniField />
-            <NameField />
-            <RegistrationNumberField />
+        <form className="grid gap-5 w-full max-w-sm" action={formAction}>
+            <DniField error={errors?.dni} />
+            <NameField error={errors?.name} />
+            <RegistrationNumberField error={errors?.registrationNumber} />
             <SubmitButton />
+            {errors?.general && (
+                <p className="text-sm text-destructive w-full text-center">
+                    {errors?.general}
+                </p>
+            )}
         </form>
     );
 }
@@ -30,7 +44,7 @@ function DniField(props: { error?: string }) {
 function NameField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
-            <Label htmlFor="name">Email</Label>
+            <Label htmlFor="name">Nombre completo</Label>
             <Input id="name" name="name" type="name" required />
             {props.error && (
                 <p className="text-sm text-destructive">{props.error}</p>
@@ -61,9 +75,18 @@ function SubmitButton() {
 
     return (
         <Button type="submit" disabled={pending}>
-            {pending ? "Ingresando..." : "Ingresar"}
+            {pending ? "Registrando..." : "Registrarme"}
         </Button>
     );
 }
+
+export type NewArchitectFormState = {
+    errors?: {
+        general?: string;
+        dni?: string;
+        name?: string;
+        registrationNumber?: string;
+    };
+};
 
 export default NewArchitectForm;
