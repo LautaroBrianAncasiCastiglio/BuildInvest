@@ -1,9 +1,9 @@
 export type ProjectId = number;
 
-export type ProjectNameSchema = name;
-export type ProyectIntestRateSchema = interestRate;
-export type ProjectLatitudeSchema = latitude;
-export type ProjectLenghtCoordsSchema = lenghtCoords;
+export type ProjectNameSchema = string;
+export type ProjectLatitudeSchema = number;
+export type ProjectLenghtCoordsSchema = number;
+export type ProjectMinAmountRequired = number;
 
 interface Project {
     id: number;
