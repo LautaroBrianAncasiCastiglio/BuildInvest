@@ -1,21 +1,20 @@
 export type ProjectId = number;
 
-export type ProjectNameSchema = name;
-export type ProyectIntestRateSchema = interestRate;
-export type ProjectLatitudeSchema = latitude;
-export type ProjectLenghtCoordsSchema = lenghtCoords;
+export type ProjectNameSchema = string;
+export type ProjectEstimatedEndDate = Date;
+export type minAmountRequired = Number;
 
 interface Project {
-    id: number;
+    id: ProjectId;
     architectId: number;
-    name: string;
+    name: ProjectNameSchema;
     latitude: string;
     lengthCoord: string;
     interestRate: number;
-    minAmountRequired: number;
+    minAmountRequired: minAmountRequired;
     maxToInvest: number;
     startDate: Date;
-    estimatedEndDate: Date;
+    estimatedEndDate: ProjectEstimatedEndDate;
     total: number;
 }
 
