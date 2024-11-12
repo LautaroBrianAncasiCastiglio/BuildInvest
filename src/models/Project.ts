@@ -1,10 +1,5 @@
 export type ProjectId = number;
 
-export type ProjectNameSchema = string;
-export type ProjectLatitudeSchema = number;
-export type ProjectLenghtCoordsSchema = number;
-export type ProjectMinAmountRequired = number;
-
 interface Project {
     id: number;
     architectId: number;

@@ -2,63 +2,49 @@
 
 import ProjectRepository from "@/models/ProjectRepository";
 import MySQLProjectRepository from "../repositories/MySQLProjectRepository";
-import {
-    ProjectNameSchema,
-    ProjectLatitudeSchema,
-    ProjectLenghtCoordsSchema,
-    ProjectMinAmountRequired,
-} from "../schemas/ProjectSchema";
+import MySQLArchitectRepository from "@/services/repositories/MySQLArchitectRepository";
+import type ArchitectRepository from "@/models/ArchitectRepository";
+import SessionManager from "@/services/SessionManager";
+import { UserType } from "@/models/User";
 
 export async function createProject(formData: FormData) {
     try {
-        const { name, latitude, length, minAmountRequired } =
+        const { name, interestRate, minAmountRequired, maxToInvest, total } =
             Object.fromEntries(formData);
-
-        const validatedName = ProjectNameSchema.safeParse(name);
-        if (!validatedName.success) {
-            return {
-                errros: {
-                    name: validatedName.error.issues[0].message,
-                },
-            };
-        }
-        const validatedLatitude = ProjectLatitudeSchema.safeParse(latitude);
-        if (!validatedLatitude.success) {
-            return {
-                erros: {
-                    latitude: validatedLatitude.error.issues[0].message,
-                },
-            };
-        }
-
-        const validatedLengthCoords =
-            ProjectLenghtCoordsSchema.safeParse(length);
-        if (!validatedLengthCoords.success) {
-            return {
-                errors: {
-                    length: validatedLengthCoords.error.issues[0].message,
-                },
-            };
-        }
-
-        const validatedMinAmountRequired =
-            ProjectMinAmountRequired.safeParse(minAmountRequired);
-        if (!validatedMinAmountRequired.success) {
-            return {
-                errors: {
-                    minAmountRequired:
-                        validatedMinAmountRequired.error.issues[0].message,
-                },
-            };
-        }
 
         const projectRepository: ProjectRepository =
             new MySQLProjectRepository();
 
+        const architectRepository: ArchitectRepository =
+            new MySQLArchitectRepository();
+        const { email, usertype } = await SessionManager.verifySession();
+        if (usertype !== UserType.architect)
+            return {
+                errors: {
+                    general: "Ha ocurrido un error al crear el proyecto",
+                },
+            };
+
+        const architect = await architectRepository.findByEmail(email!);
+        if (!architect)
+            return {
+                errors: {
+                    general: "Ha ocurrido un error al crear el proyecto",
+                },
+            };
+
         await projectRepository.create({
-            name: validatedName.data,
-            latitude: validatedLatitude.data,
-            lengthCoord: validatedLengthCoords.data,
+            id: 0,
+            architectId: architect.id,
+            interestRate: Number(interestRate),
+            name: name as string,
+            minAmountRequired: Number(minAmountRequired),
+            maxToInvest: Number(maxToInvest),
+            latitude: "4",
+            startDate: new Date(),
+            estimatedEndDate: new Date(),
+            lengthCoord: "4",
+            total: Number(total),
         });
     } catch (e) {
         console.log(e);

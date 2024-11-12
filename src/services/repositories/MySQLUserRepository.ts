@@ -1,4 +1,4 @@
-import type { UserEmail } from "@/models/User";
+import { UserType, type UserEmail } from "@/models/User";
 import type User from "@/models/User";
 import type UserRepository from "@/models/UserRepository";
 import MySQLPool from "@/services/MySQLPool";
@@ -12,6 +12,7 @@ interface DBUser extends RowDataPacket {
     email: string;
     password: string;
     create_time: Date;
+    usertype: number;
 }
 
 class MySQLUserRepository implements UserRepository {
@@ -25,8 +26,13 @@ class MySQLUserRepository implements UserRepository {
     async create(user: User): Promise<User> {
         try {
             await MySQLPool.execute(
-                "INSERT INTO users (`username`, `email`, `password`) VALUES (?, ?, ?)",
-                [user.username, user.email, user.password],
+                "INSERT INTO users (`username`, `email`, `password`, `usertype`) VALUES (?, ?, ?, ?)",
+                [
+                    user.username,
+                    user.email,
+                    user.password,
+                    user.usertype === UserType.investor ? 1 : 2,
+                ],
             );
             return user;
         } catch (err) {
@@ -50,6 +56,8 @@ class MySQLUserRepository implements UserRepository {
                 email: row.email,
                 password: row.password,
                 createdAt: row.create_time,
+                usertype:
+                    row.usertype === 1 ? UserType.investor : UserType.architect,
             }));
         } catch (err) {
             throw err;
@@ -66,7 +74,7 @@ class MySQLUserRepository implements UserRepository {
     async findOne(email: UserEmail): Promise<User | null> {
         try {
             const [row] = await MySQLPool.execute<DBUser[]>(
-                "SELECT `username`, `email`, `password`, `create_time` FROM users WHERE `email` = ? LIMIT 1",
+                "SELECT `username`, `email`, `password`, `create_time`, `usertype` FROM users WHERE `email` = ? LIMIT 1",
                 [email],
             );
             const [foundUser] = row;
@@ -80,6 +88,10 @@ class MySQLUserRepository implements UserRepository {
                 email: foundUser.email,
                 password: foundUser.password,
                 createdAt: foundUser.create_time,
+                usertype:
+                    foundUser.usertype === 1
+                        ? UserType.investor
+                        : UserType.architect,
             };
         } catch (err) {
             throw err;
@@ -115,6 +127,17 @@ class MySQLUserRepository implements UserRepository {
             await MySQLPool.execute("DELETE FROM users WHERE `email` = ?", [
                 email,
             ]);
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async updateUsertype(email: UserEmail, usertype: UserType): Promise<void> {
+        try {
+            await MySQLPool.execute(
+                "UPDATE users SET `usertype` = ? WHERE `email` = ?",
+                [usertype === UserType.architect ? 2 : 1, email],
+            );
         } catch (err) {
             throw err;
         }

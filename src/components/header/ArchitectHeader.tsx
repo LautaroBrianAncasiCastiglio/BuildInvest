@@ -12,7 +12,7 @@ import {
 import Link from "next/link";
 import { LuMenu } from "react-icons/lu";
 
-export default function InvestorHeader() {
+export default function ArchitectHeader() {
     return (
         <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
             <HeaderNavigation />
@@ -48,12 +48,6 @@ function HeaderNavigation() {
                     className="text-foreground transition-colors hover:text-foreground leading-none"
                 >
                     Preguntas frecuentes
-                </Link>
-                <Link
-                    href="/arquitecto/nuevo"
-                    className="text-foreground transition-colors hover:text-foreground leading-none"
-                >
-                    Registrarme como arquitecto
                 </Link>
             </div>
             <div className="flex gap-4">
@@ -113,14 +107,6 @@ function ResponsiveHeaderNavigation() {
                                 className="text-foreground hover:text-foreground py-1"
                             >
                                 Preguntas frecuentes
-                            </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                            <Link
-                                href="/arquitecto/nuevo"
-                                className="text-foreground hover:text-foreground py-1"
-                            >
-                                Registrarme como arquitecto
                             </Link>
                         </SheetClose>
                         <SheetClose asChild>

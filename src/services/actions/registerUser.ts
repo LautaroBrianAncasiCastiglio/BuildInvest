@@ -1,6 +1,7 @@
 "use server";
 
 import type { RegisterFormState } from "@/components/register/RegisterForm";
+import { UserType } from "@/models/User";
 import type UserRepository from "@/models/UserRepository";
 import PasswordEncrypter from "@/services/PasswordEncrypter";
 import MySQLUserRepository from "@/services/repositories/MySQLUserRepository";
@@ -47,9 +48,13 @@ export async function registerUser(
             password: encryptedPassword,
             username: "",
             createdAt: new Date(),
+            usertype: UserType.investor,
         });
 
-        await SessionManager.createSession(validatedEmail.data);
+        await SessionManager.createSession(
+            validatedEmail.data,
+            UserType.investor,
+        );
     } catch (e) {
         console.error(e);
 

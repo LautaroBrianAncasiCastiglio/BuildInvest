@@ -56,7 +56,7 @@ export async function loginUser(prevState: LoginFormState, formData: FormData) {
             };
         }
 
-        await SessionManager.createSession(user.email);
+        await SessionManager.createSession(user.email, user.usertype);
     } catch (error) {
         console.error(error);
         return {

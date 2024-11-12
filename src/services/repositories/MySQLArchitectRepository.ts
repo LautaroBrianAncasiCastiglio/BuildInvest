@@ -1,4 +1,8 @@
-import type { ArchitectDni, ArchitectId } from "@/models/Architect";
+import type {
+    ArchitectDni,
+    ArchitectEmail,
+    ArchitectId,
+} from "@/models/Architect";
 import type Architect from "@/models/Architect";
 import type ArchitectRepository from "@/models/ArchitectRepository";
 import MySQLPool from "@/services/MySQLPool";
@@ -70,7 +74,7 @@ class MySQLArchitectRepository implements ArchitectRepository {
      */
     async findOne(id: ArchitectId): Promise<Architect | null> {
         const [row] = await MySQLPool.execute<DBArchitect[]>(
-            "SELECT idarchitect AS id, complete_name AS name, dni, n_matricula AS registrationNumber, email FROM architect WHERE idarchitect = ? LIMIT 1",
+            "SELECT idarchitect, complete_name, dni, n_matricula, email FROM architect WHERE idarchitect = ? LIMIT 1",
             [id],
         );
 
@@ -83,6 +87,27 @@ class MySQLArchitectRepository implements ArchitectRepository {
         return {
             id: foundArchitect.idarchitect,
             name: foundArchitect.complete_name,
+            dni: foundArchitect.dni,
+            registrationNumber: foundArchitect.n_matricula,
+            email: foundArchitect.email,
+        };
+    }
+
+    async findByEmail(email: ArchitectEmail): Promise<Architect | null> {
+        const [row] = await MySQLPool.execute<DBArchitect[]>(
+            "SELECT idarchitect, complete_name, dni, n_matricula, email FROM architect WHERE email = ? LIMIT 1",
+            [email],
+        );
+
+        if (!row.length) {
+            return null;
+        }
+
+        const foundArchitect = row[0];
+
+        return {
+            id: foundArchitect.id,
+            name: foundArchitect.name,
             dni: foundArchitect.dni,
             registrationNumber: foundArchitect.n_matricula,
             email: foundArchitect.email,

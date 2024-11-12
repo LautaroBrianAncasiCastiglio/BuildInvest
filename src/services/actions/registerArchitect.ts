@@ -1,7 +1,10 @@
 "use server";
 
 import type { NewArchitectFormState } from "@/components/new-architect/NewArchitectForm";
+import { UserType } from "@/models/User";
+import type UserRepository from "@/models/UserRepository";
 import MySQLArchitectRepository from "@/services/repositories/MySQLArchitectRepository";
+import MySQLUserRepository from "@/services/repositories/MySQLUserRepository";
 import {
     ArchitectDniSchema,
     ArchitectNameSchema,
@@ -72,6 +75,12 @@ export async function registerArchitect(
             name: validatedName.data,
             registrationNumber: validatedRegistrationNumber.data,
         });
+
+        const userRepository: UserRepository = new MySQLUserRepository();
+
+        await userRepository.updateUsertype(email, UserType.architect);
+
+        await SessionManager.createSession(email, UserType.architect);
     } catch (e) {
         console.error(e);
         return {

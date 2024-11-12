@@ -8,6 +8,12 @@ interface User {
     email: UserEmail;
     password: UserPassword;
     createdAt: UserCreatedAt;
+    usertype: UserType;
+}
+
+export enum UserType {
+    architect = "architect",
+    investor = "investor",
 }
 
 export default User;
