@@ -31,7 +31,7 @@ function HeaderNavigation() {
                     BuildInvest
                 </Link>
                 <Link
-                    href="#"
+                    href="/proyectos"
                     className="text-foreground transition-colors hover:text-foreground leading-none"
                 >
                     Proyectos
@@ -91,7 +91,7 @@ function ResponsiveHeaderNavigation() {
                     <div className="flex flex-col justify-end h-full gap-4 py-16 text-base font-medium">
                         <SheetClose asChild>
                             <Link
-                                href="#"
+                                href="/proyectos"
                                 className="text-foreground hover:text-foreground py-1"
                             >
                                 Proyectos
