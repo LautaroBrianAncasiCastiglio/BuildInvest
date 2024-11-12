@@ -1,7 +1,7 @@
 export type ProjectId = number;
 
 interface Project {
-    id: number;
+    id: ProjectId;
     architectId: number;
     name: string;
     latitude: string;
