@@ -6,17 +6,24 @@ import MySQLArchitectRepository from "@/services/repositories/MySQLArchitectRepo
 import type ArchitectRepository from "@/models/ArchitectRepository";
 import SessionManager from "@/services/SessionManager";
 import { UserType } from "@/models/User";
+import type { NewProjectFormState } from "@/components/new-project/NewProjectForm";
 
-export async function createProject(formData: FormData) {
+export async function createProject(
+    prevState: NewProjectFormState,
+    formData: FormData,
+) {
     try {
         const { name, interestRate, minAmountRequired, maxToInvest, total } =
             Object.fromEntries(formData);
+
+        console.log(Object.fromEntries(formData));
 
         const projectRepository: ProjectRepository =
             new MySQLProjectRepository();
 
         const architectRepository: ArchitectRepository =
             new MySQLArchitectRepository();
+
         const { email, usertype } = await SessionManager.verifySession();
         if (usertype !== UserType.architect)
             return {
@@ -26,6 +33,7 @@ export async function createProject(formData: FormData) {
             };
 
         const architect = await architectRepository.findByEmail(email!);
+        console.log(architect);
         if (!architect)
             return {
                 errors: {
@@ -46,6 +54,8 @@ export async function createProject(formData: FormData) {
             lengthCoord: "4",
             total: Number(total),
         });
+
+        return {};
     } catch (e) {
         console.log(e);
         return {

@@ -51,6 +51,9 @@ function HeaderNavigation() {
                 </Link>
             </div>
             <div className="flex gap-4">
+                <Button asChild>
+                    <Link href="/proyectos/nuevo">Nuevo proyecto</Link>
+                </Button>
                 <LogoutButton />
             </div>
         </nav>
@@ -110,7 +113,14 @@ function ResponsiveHeaderNavigation() {
                             </Link>
                         </SheetClose>
                         <SheetClose asChild>
-                            <LogoutButton />
+                            <Button asChild>
+                                <Link href="/proyectos/nuevo">
+                                    Nuevo proyecto
+                                </Link>
+                            </Button>
+                        </SheetClose>
+                        <SheetClose asChild>
+                            <LogoutButton className="w-full" />
                         </SheetClose>
                     </div>
                 </SheetContent>

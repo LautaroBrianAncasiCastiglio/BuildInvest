@@ -2,12 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { registerArchitect } from "@/services/actions/registerArchitect";
+import { createProject } from "@/services/actions/createProject";
 import { useFormState, useFormStatus } from "react-dom";
 
 function NewProjectForm() {
     const [state, formAction] = useFormState<NewProjectFormState, FormData>(
-        registerArchitect,
+        createProject,
         {
             errors: {},
         },
@@ -113,7 +113,7 @@ function SubmitButton() {
 
     return (
         <Button type="submit" disabled={pending}>
-            {pending ? "Registrando..." : "Registrarme"}
+            {pending ? "Creando..." : "Crear proyecto"}
         </Button>
     );
 }

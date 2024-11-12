@@ -106,8 +106,8 @@ class MySQLArchitectRepository implements ArchitectRepository {
         const foundArchitect = row[0];
 
         return {
-            id: foundArchitect.id,
-            name: foundArchitect.name,
+            id: foundArchitect.idarchitect,
+            name: foundArchitect.complete_name,
             dni: foundArchitect.dni,
             registrationNumber: foundArchitect.n_matricula,
             email: foundArchitect.email,
