@@ -34,7 +34,7 @@ function NewProjectForm() {
 function NameField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
-            <Label htmlFor="name">Nombre completo</Label>
+            <Label htmlFor="name">Nombre completo del proyecto</Label>
             <Input id="name" name="name" type="name" required />
             {props.error && (
                 <p className="text-sm text-destructive">{props.error}</p>
@@ -46,7 +46,7 @@ function NameField(props: { error?: string }) {
 function InterestRateField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
-            <Label htmlFor="interestRate">Interes</Label>
+            <Label htmlFor="interestRate">Interés</Label>
             <Input
                 id="interestRate"
                 name="interestRate"
@@ -64,7 +64,7 @@ function MinAmountRequiredField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
             <Label htmlFor="minAmountRequired">
-                Cantidad minima para invertir
+                Cantidad mínima para invertir
             </Label>
             <Input
                 id="minAmountRequired"
@@ -82,7 +82,9 @@ function MinAmountRequiredField(props: { error?: string }) {
 function MaxToInvestField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
-            <Label htmlFor="maxToInvest">Cantidad maxima de inversion</Label>
+            <Label htmlFor="maxToInvest">
+                Cantidad máxima de inversión por persona
+            </Label>
             <Input
                 id="maxToInvest"
                 name="maxToInvest"
@@ -99,7 +101,7 @@ function MaxToInvestField(props: { error?: string }) {
 function TotalField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
-            <Label htmlFor="total">Total de presupuesto</Label>
+            <Label htmlFor="total">Presupuesto total</Label>
             <Input id="total" name="total" type="total" required />
             {props.error && (
                 <p className="text-sm text-destructive">{props.error}</p>
