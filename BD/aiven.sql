@@ -124,7 +124,18 @@ CREATE TABLE `users` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
+ALTER TABLE users
+ADD COLUMN usertype tinyint DEFAULT 1;
 
+ALTER TABLE architect
+DROP COLUMN antecedentes;
+
+ALTER TABLE architect
+DROP COLUMN curriculum;
+
+
+ALTER TABLE project
+MODIFY COLUMN total decimal(18,2);
 --
 -- Dumping data for table `users`
 --
