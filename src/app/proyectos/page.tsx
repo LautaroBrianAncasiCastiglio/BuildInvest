@@ -8,10 +8,10 @@ async function ProjectsPage() {
     const projects = await projectRepository.findAll();
 
     return (
-        <main className="flex gap-4 justify-center items-center h-full w-full py-12 lg:py-24">
+        <main className="flex gap-4 justify-center items-center h-full w-full py-12 px-4 lg:py-24">
             <div className="flex flex-col items-center w-full space-y-10">
                 <header className="max-w-sm flex flex-col gap-2 text-center">
-                    <h1 className="text-3xl font-bold">Proyectos</h1>
+                    <h1 className="text-4xl font-bold">Proyectos</h1>
                 </header>
                 {projects.length < 1 ? (
                     <p>No hay proyectos creados.</p>
@@ -31,14 +31,14 @@ function ProjectCard(project: Project) {
     return (
         <li
             key={project.architectId}
-            className="flex flex-col p-8 rounded-2xl w-full border border-border"
+            className="flex flex-col p-8 rounded-[24px] w-full border border-border"
         >
             <Link href={`/proyectos/detalles/${project.id}`}>
                 <article className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <h3 className="text-2xl font-bold self-center">
                         {project.name}
                     </h3>
-                    <div className="flex flex-col items-end gap-1 self-center justify-self-end">
+                    <div className="flex flex-col md:items-end gap-1 self-center md:justify-self-end">
                         <p className="text-lg text-primary">
                             {project.interestRate}% de interés anual
                         </p>
@@ -46,7 +46,7 @@ function ProjectCard(project: Project) {
                             Mínimo de inversión: {project.minAmountRequired}$
                         </p>
                     </div>
-                    <div className="flex flex-col gap-1 col-span-2 pt-3">
+                    <div className="flex flex-col gap-1 md:col-span-2 pt-3">
                         <div className="flex w-full justify-between">
                             <p className="text-primary font-bold">
                                 {project.total}$
