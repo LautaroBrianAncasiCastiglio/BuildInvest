@@ -57,16 +57,6 @@ class MySQLProjectRepository implements ProjectRepository {
 
         return this.adaptProject(foundProject);
     }
-    async findByIdProject(projectId: ProjectId): Promise<Project | null> {
-        const [result] = await MySQLPool.query<DBProject[]>(
-            "SELECT * FROM project WHERE idproject = ?",
-            [projectId],
-        );
-        const foundProject = result[0];
-
-        if (!foundProject) return null;
-        return this.adaptProject(foundProject);
-    }
     async findByArchitect(architectId: ArchitectId): Promise<Project[]> {
         const [result] = await MySQLPool.query<DBProject[]>(
             "SELECT * FROM project WHERE architect = ?",

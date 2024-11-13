@@ -1,4 +1,6 @@
+import type Project from "@/models/Project";
 import MySQLProjectRepository from "@/services/repositories/MySQLProjectRepository";
+import Link from "next/link";
 
 async function ProjectsPage() {
     const projectRepository = new MySQLProjectRepository();
@@ -15,29 +17,30 @@ async function ProjectsPage() {
                 ) : (
                     <ul className="flex flex-col gap-4 max-w-xl w-full">
                         {projects.map((project) => (
-                            <li
-                                key={project.architectId}
-                                className="flex flex-col p-8 rounded-2xl w-full border border-border"
-                            >
-                                <article>
-                                    <h3>{project.name}</h3>
-                                    <p>
-                                        {project.interestRate}% de interés anual
-                                    </p>
-                                    <p>
-                                        Mínimo de inversión:{" "}
-                                        {project.minAmountRequired}$
-                                    </p>
-                                    <p>
-                                        Presupuesto total de: {project.total}$
-                                    </p>
-                                </article>
-                            </li>
+                            <ProjectCard key={project.id} {...project} />
                         ))}
                     </ul>
                 )}
             </div>
         </main>
+    );
+}
+
+function ProjectCard(project: Project) {
+    return (
+        <li
+            key={project.architectId}
+            className="flex flex-col p-8 rounded-2xl w-full border border-border"
+        >
+            <Link href={`/proyectos/detalles/${project.id}`}>
+                <article>
+                    <h3>{project.name}</h3>
+                    <p>{project.interestRate}% de interés anual</p>
+                    <p>Mínimo de inversión: {project.minAmountRequired}$</p>
+                    <p>Presupuesto total de: {project.total}$</p>
+                </article>
+            </Link>
+        </li>
     );
 }
 
