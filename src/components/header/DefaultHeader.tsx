@@ -37,7 +37,7 @@ function HeaderNavigation() {
                     Proyectos
                 </Link>
                 <Link
-                    href="#"
+                    href="/sobre-nosotros"
                     className="text-foreground transition-colors hover:text-foreground leading-none"
                 >
                     Sobre nosotros
@@ -99,7 +99,7 @@ function ResponsiveHeaderNavigation() {
                         </SheetClose>
                         <SheetClose asChild>
                             <Link
-                                href="#"
+                                href="/sobre-nosotros"
                                 className="text-foreground hover:text-foreground py-1"
                             >
                                 Sobre nosotros

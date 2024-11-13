@@ -38,7 +38,7 @@ function HeaderNavigation() {
                     Proyectos
                 </Link>
                 <Link
-                    href="#"
+                    href="/sobre-nosotros"
                     className="text-foreground transition-colors hover:text-foreground leading-none"
                 >
                     Sobre nosotros
