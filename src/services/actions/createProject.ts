@@ -13,10 +13,8 @@ export async function createProject(
     formData: FormData,
 ) {
     try {
-        const { name, interestRate, minAmountRequired, maxToInvest, total } =
+        const { name, interestRate, minAmountRequired, maxToInvest } =
             Object.fromEntries(formData);
-
-        console.log(Object.fromEntries(formData));
 
         const projectRepository: ProjectRepository =
             new MySQLProjectRepository();
@@ -33,7 +31,7 @@ export async function createProject(
             };
 
         const architect = await architectRepository.findByEmail(email!);
-        console.log(architect);
+
         if (!architect)
             return {
                 errors: {
@@ -52,12 +50,12 @@ export async function createProject(
             startDate: new Date(),
             estimatedEndDate: new Date(),
             lengthCoord: "4",
-            total: Number(total),
+            total: 0,
         });
 
         return {};
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return {
             errors: {
                 general: "Ha ocurrido un error al crear el proyecto",

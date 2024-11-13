@@ -136,6 +136,8 @@ DROP COLUMN curriculum;
 
 ALTER TABLE project
 MODIFY COLUMN total decimal(18,2);
+
+ALTER TABLE project MODIFY COLUMN total decimal(18,2) DEFAULT 0;
 --
 -- Dumping data for table `users`
 --
