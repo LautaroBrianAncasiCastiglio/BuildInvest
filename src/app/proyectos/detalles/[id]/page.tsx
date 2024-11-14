@@ -89,7 +89,9 @@ async function ProjectDetails({ params }: { params: { id: string } }) {
                             className="w-full text-base font-bold"
                             size={"lg"}
                         >
-                            Invertir ahora
+                            <Link href={`/proyectos/invertir/${project.id}`}>
+                                Invertir ahora
+                            </Link>
                         </Button>
                     </CardContent>
                 </Card>

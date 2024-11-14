@@ -16,7 +16,7 @@ async function ProjectsPage() {
                 {projects.length < 1 ? (
                     <p>No hay proyectos creados.</p>
                 ) : (
-                    <ul className="flex flex-col gap-4 max-w-2xl w-full">
+                    <ul className="flex flex-col gap-8 max-w-2xl w-full">
                         {projects.map((project) => (
                             <ProjectCard key={project.id} {...project} />
                         ))}
@@ -31,13 +31,11 @@ function ProjectCard(project: Project) {
     return (
         <li
             key={project.architectId}
-            className="flex flex-col p-8 rounded-[24px] w-full border border-border"
+            className="flex flex-col p-8 sm:p-12 rounded-[24px] w-full border border-border shadow-lg"
         >
             <Link href={`/proyectos/detalles/${project.id}`}>
                 <article className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <h3 className="text-2xl font-bold self-center">
-                        {project.name}
-                    </h3>
+                    <h3 className="text-2xl font-bold">{project.name}</h3>
                     <div className="flex flex-col md:items-end gap-1 self-center md:justify-self-end">
                         <p className="text-lg text-primary">
                             {project.interestRate}% de interés anual
