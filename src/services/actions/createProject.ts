@@ -7,6 +7,8 @@ import type ArchitectRepository from "@/models/ArchitectRepository";
 import SessionManager from "@/services/SessionManager";
 import { UserType } from "@/models/User";
 import type { NewProjectFormState } from "@/components/new-project/NewProjectForm";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function createProject(
     prevState: NewProjectFormState,
@@ -53,7 +55,8 @@ export async function createProject(
             total: 0,
         });
 
-        return {};
+        revalidatePath("/proyectos");
+        redirect("/proyectos");
     } catch (e) {
         console.error(e);
         return {
