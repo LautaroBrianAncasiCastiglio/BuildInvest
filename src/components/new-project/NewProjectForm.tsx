@@ -20,7 +20,6 @@ function NewProjectForm() {
             <InterestRateField error={undefined} />
             <MinAmountRequiredField error={undefined} />
             <MaxToInvestField error={undefined} />
-            <TotalField error={undefined} />
             <SubmitButton />
             {errors?.general && (
                 <p className="text-sm text-destructive w-full text-center">
@@ -82,27 +81,13 @@ function MinAmountRequiredField(props: { error?: string }) {
 function MaxToInvestField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
-            <Label htmlFor="maxToInvest">
-                Cantidad máxima de inversión por persona
-            </Label>
+            <Label htmlFor="maxToInvest">Presupuesto máximo</Label>
             <Input
                 id="maxToInvest"
                 name="maxToInvest"
                 type="maxToInvest"
                 required
             />
-            {props.error && (
-                <p className="text-sm text-destructive">{props.error}</p>
-            )}
-        </div>
-    );
-}
-
-function TotalField(props: { error?: string }) {
-    return (
-        <div className="grid gap-2">
-            <Label htmlFor="total">Presupuesto total</Label>
-            <Input id="total" name="total" type="total" required />
             {props.error && (
                 <p className="text-sm text-destructive">{props.error}</p>
             )}
@@ -127,7 +112,6 @@ export type NewProjectFormState = {
         interestRate?: string;
         minAmountRequired?: string;
         maxToInvest?: string;
-        total?: string;
     };
 };
 
