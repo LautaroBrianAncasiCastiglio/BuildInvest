@@ -44,7 +44,7 @@ function HeaderNavigation() {
                     Sobre nosotros
                 </Link>
                 <Link
-                    href="#"
+                    href="/preguntas-frecuentes"
                     className="text-foreground transition-colors hover:text-foreground leading-none"
                 >
                     Preguntas frecuentes
