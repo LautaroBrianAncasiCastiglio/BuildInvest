@@ -32,6 +32,13 @@ export async function investProject(
                 },
             };
 
+        if (project.total >= project.maxToInvest)
+            return {
+                errors: {
+                    general: "El proyecto alcanzó su límite",
+                },
+            };
+
         const projectRepository: ProjectRepository =
             new MySQLProjectRepository();
 
