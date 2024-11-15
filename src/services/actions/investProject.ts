@@ -25,6 +25,12 @@ export async function investProject(
                     amount: "La cantidad no puede superar el límite de inversión",
                 },
             };
+        if (amount < project.minAmountRequired)
+            return {
+                errors: {
+                    amount: "La cantidad debe ser mayor o igual al monto mínimo",
+                },
+            };
 
         const projectRepository: ProjectRepository =
             new MySQLProjectRepository();
