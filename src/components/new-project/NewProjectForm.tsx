@@ -1,13 +1,32 @@
 "use client";
+import ProjectDateSelector from "@/components/new-project/ProjectDateSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createProject } from "@/services/actions/createProject";
+import { addDays } from "date-fns";
+import { useState } from "react";
+import type { DateRange } from "react-day-picker";
 import { useFormState, useFormStatus } from "react-dom";
 
 function NewProjectForm() {
+    const [dateRange, setDateRange] = useState<DateRange>({
+        from: new Date(),
+        to: addDays(new Date(), 30),
+    });
+
+    const createProjectWithDate = async (
+        prevState: NewProjectFormState,
+        formData: FormData,
+    ) => {
+        return await createProject(prevState, formData, {
+            from: dateRange.from!,
+            to: dateRange.to!,
+        });
+    };
+
     const [state, formAction] = useFormState<NewProjectFormState, FormData>(
-        createProject,
+        createProjectWithDate,
         {
             errors: {},
         },
@@ -20,6 +39,7 @@ function NewProjectForm() {
             <InterestRateField error={undefined} />
             <MinAmountRequiredField error={undefined} />
             <MaxToInvestField error={undefined} />
+            <ProjectDateSelector date={dateRange} onDateChange={setDateRange} />
             <SubmitButton />
             {errors?.general && (
                 <p className="text-sm text-destructive w-full text-center">

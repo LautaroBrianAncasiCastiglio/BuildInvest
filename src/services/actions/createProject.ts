@@ -13,6 +13,7 @@ import { redirect } from "next/navigation";
 export async function createProject(
     prevState: NewProjectFormState,
     formData: FormData,
+    dates: { from: Date; to: Date },
 ) {
     try {
         const { name, interestRate, minAmountRequired, maxToInvest } =
@@ -28,7 +29,7 @@ export async function createProject(
         if (usertype !== UserType.architect)
             return {
                 errors: {
-                    general: "Ha ocurrido un error al crear el proyecto",
+                    general: "Debes ser un arquitecto para crear un proyecto",
                 },
             };
 
@@ -37,7 +38,7 @@ export async function createProject(
         if (!architect)
             return {
                 errors: {
-                    general: "Ha ocurrido un error al crear el proyecto",
+                    general: "Cuenta inválida",
                 },
             };
 
@@ -49,14 +50,13 @@ export async function createProject(
             minAmountRequired: Number(minAmountRequired),
             maxToInvest: Number(maxToInvest),
             latitude: "4",
-            startDate: new Date(),
-            estimatedEndDate: new Date(),
+            startDate: dates.from,
+            estimatedEndDate: dates.to,
             lengthCoord: "4",
             total: 0,
         });
 
         revalidatePath("/proyectos");
-        redirect("/proyectos");
     } catch (e) {
         console.error(e);
         return {
@@ -65,4 +65,5 @@ export async function createProject(
             },
         };
     }
+    redirect("/proyectos");
 }
