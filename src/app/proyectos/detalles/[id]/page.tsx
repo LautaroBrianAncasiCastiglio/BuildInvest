@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type ProjectRepository from "@/models/ProjectRepository";
 import MySQLProjectRepository from "@/services/repositories/MySQLProjectRepository";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import Link from "next/link";
 
 async function ProjectDetails({ params }: { params: { id: string } }) {
@@ -49,14 +51,24 @@ async function ProjectDetails({ params }: { params: { id: string } }) {
                         </div>
                         <div className="flex flex-col">
                             <p className="font-bold text-sm">Fecha de inicio</p>
-                            <p>{project.startDate.toLocaleDateString()}</p>
+                            <p>
+                                {format(project.startDate, "dd 'de' LLLL, y", {
+                                    locale: es,
+                                })}
+                            </p>
                         </div>
                         <div className="flex flex-col">
                             <p className="font-bold text-sm">
                                 Fecha de finalización estimada
                             </p>
                             <p>
-                                {project.estimatedEndDate.toLocaleDateString()}
+                                {format(
+                                    project.estimatedEndDate,
+                                    "dd 'de' LLLL, y",
+                                    {
+                                        locale: es,
+                                    },
+                                )}
                             </p>
                         </div>
                     </CardContent>
