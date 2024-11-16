@@ -24,7 +24,7 @@ export default function Home() {
                     </div>
                     <div className="space-x-4">
                         <Button size={"lg"} asChild>
-                            <Link href="#">Invertir ahora</Link>
+                            <Link href="/proyectos">Invertir ahora</Link>
                         </Button>
                     </div>
                 </section>
