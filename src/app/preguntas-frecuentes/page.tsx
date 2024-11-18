@@ -57,13 +57,13 @@ export default function FrecuentAsks() {
                         </Accordion>
                     </div>
 
-                    <div className="hidden md:grid md:grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div className="hidden md:grid md:grid-cols-1 lg:grid-cols-2 gap-8">
                         {faqs.map((faq, index) => (
                             <div
                                 key={index}
                                 className="p-4 border rounded-lg shadow"
                             >
-                                <h3 className="text-lg font-medium mb-2">
+                                <h3 className="text-lg font-medium my-2">
                                     {faq.question}
                                 </h3>
                                 <p className="text-gray-700">{faq.answer}</p>
