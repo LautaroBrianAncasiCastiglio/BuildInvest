@@ -28,6 +28,9 @@ async function InvestProject({ params }: { params: { id: string } }) {
             </main>
         );
 
+    if (project.total >= project.maxToInvest)
+        return redirect("/proyectos/detalles/" + project.id);
+
     return (
         <main className="flex flex-col gap-6 md:gap-12 justify-center items-center w-full py-16 px-4 md:py-24">
             <header className="flex justify-center">

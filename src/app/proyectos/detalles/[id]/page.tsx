@@ -97,14 +97,22 @@ async function ProjectDetails({ params }: { params: { id: string } }) {
                                 }
                             />
                         </div>
-                        <Button
-                            className="w-full text-base font-bold"
-                            size={"lg"}
-                        >
-                            <Link href={`/proyectos/invertir/${project.id}`}>
-                                Invertir ahora
-                            </Link>
-                        </Button>
+                        {project.total < project.maxToInvest ? (
+                            <Button
+                                className="w-full text-base font-bold"
+                                size={"lg"}
+                            >
+                                <Link
+                                    href={`/proyectos/invertir/${project.id}`}
+                                >
+                                    Invertir ahora
+                                </Link>
+                            </Button>
+                        ) : (
+                            <p className="text-destructive">
+                                El proyecto ha llegado a su límite de inversión
+                            </p>
+                        )}
                     </CardContent>
                 </Card>
             </div>
