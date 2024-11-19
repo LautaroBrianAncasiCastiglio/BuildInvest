@@ -98,21 +98,6 @@ class MySQLProjectRepository implements ProjectRepository {
         ]);
     }
 
-    async investProject(
-        project: Project,
-        email: string,
-        amount: number,
-    ): Promise<void> {
-        await MySQLPool.execute(
-            "INSERT INTO investment (user_email, project, amount) VALUES (?, ?, ?)",
-            [email, project.id, amount],
-        );
-        await MySQLPool.execute(
-            "UPDATE project SET total = total + ? WHERE idproject = ?",
-            [amount, project.id],
-        );
-    }
-
     private adaptProject(dbProject: DBProject): Project {
         return {
             id: dbProject.idproject,

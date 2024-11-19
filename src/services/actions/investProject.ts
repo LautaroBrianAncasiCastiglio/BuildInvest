@@ -1,13 +1,13 @@
 "use server";
 
-import ProjectRepository from "@/models/ProjectRepository";
-import MySQLProjectRepository from "../repositories/MySQLProjectRepository";
 import SessionManager from "@/services/SessionManager";
 import { UserType } from "@/models/User";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import type { InvestProjectFormState } from "@/components/invest-project/InvestProjectForm";
 import type Project from "@/models/Project";
+import type InvestmentRepository from "@/models/InvestmentRepository";
+import MySQLInvestmentRepository from "@/services/repositories/MySQLInvestmentRepository";
 
 export async function investProject(
     project: Project,
@@ -39,8 +39,8 @@ export async function investProject(
                 },
             };
 
-        const projectRepository: ProjectRepository =
-            new MySQLProjectRepository();
+        const InvestmentRepository: InvestmentRepository =
+            new MySQLInvestmentRepository();
 
         const { isAuth, email, usertype } =
             await SessionManager.verifySession();
@@ -54,7 +54,7 @@ export async function investProject(
                 },
             };
 
-        await projectRepository.investProject(project, email!, amount);
+        await InvestmentRepository.investProject(project, email!, amount);
 
         revalidatePath(`/proyectos`);
         revalidatePath(`/proyectos/detalles/${project.id}`);

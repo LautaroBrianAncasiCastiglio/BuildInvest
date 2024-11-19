@@ -38,6 +38,12 @@ function HeaderNavigation() {
                     Proyectos
                 </Link>
                 <Link
+                    href="/inversiones"
+                    className="text-foreground transition-colors hover:text-foreground leading-none"
+                >
+                    Mis inversiones
+                </Link>
+                <Link
                     href="/sobre-nosotros"
                     className="text-foreground transition-colors hover:text-foreground leading-none"
                 >
@@ -97,6 +103,14 @@ function ResponsiveHeaderNavigation() {
                                 className="text-foreground hover:text-foreground py-1"
                             >
                                 Proyectos
+                            </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                            <Link
+                                href="/inversiones"
+                                className="text-foreground hover:text-foreground py-1"
+                            >
+                                Mis inversiones
                             </Link>
                         </SheetClose>
                         <SheetClose asChild>
