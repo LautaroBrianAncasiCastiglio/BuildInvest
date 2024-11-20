@@ -59,7 +59,12 @@ function ProjectCard(props: { project: Project }) {
                 <Skeleton className="w-full aspect-[4/3] rounded-2xl" />
                 <div className="flex flex-col gap-1">
                     <h3 className="text-lg font-bold">{project.name}</h3>
-                    <p className="text-muted-foreground">Proyecto de ejemplo</p>
+                    <p className="text-muted-foreground line-clamp-2">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Vel iure fugit cumque reprehenderit, aut magnam ratione
+                        necessitatibus. Iure, illum est ad error dolore sunt ea
+                        qui aliquam optio. Mollitia, ducimus! Doloribus nesciunt
+                    </p>
                 </div>
             </article>
         </Link>
