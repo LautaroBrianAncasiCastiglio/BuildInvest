@@ -9,6 +9,7 @@ interface DBProject extends RowDataPacket {
     idproject: number;
     architect: number;
     name: string;
+    description: string;
     latitude: string;
     length: string;
     interest_rate: number;
@@ -23,10 +24,11 @@ class MySQLProjectRepository implements ProjectRepository {
     async create(project: Project): Promise<Project> {
         try {
             const [res] = await MySQLPool.execute<ResultSetHeader>(
-                "INSERT INTO project (`architect`, `name`, `latitude`, `length`, `interest_rate`, `min`, `max`, `start_date`, `estimated_end`, `total`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO project (`architect`, `name`, `description`, `latitude`, `length`, `interest_rate`, `min`, `max`, `start_date`, `estimated_end`, `total`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 [
                     project.architectId,
                     project.name,
+                    project.description,
                     project.latitude,
                     project.lengthCoord,
                     project.interestRate,
@@ -82,10 +84,11 @@ class MySQLProjectRepository implements ProjectRepository {
     }
     async update(project: Project): Promise<Project> {
         await MySQLPool.execute(
-            "UPDATE project SET architect = ?, name = ?, latitude = ?, length = ?, interest_rate = ?, min = ?, max = ?, start_date = ?, estimated_end = ?, total = ? WHERE idproject = ?",
+            "UPDATE project SET architect = ?, name = ?, description = ?, latitude = ?, length = ?, interest_rate = ?, min = ?, max = ?, start_date = ?, estimated_end = ?, total = ? WHERE idproject = ?",
             [
                 project.architectId,
                 project.name,
+                project.description,
                 project.latitude,
                 project.lengthCoord,
                 project.interestRate,
@@ -111,6 +114,7 @@ class MySQLProjectRepository implements ProjectRepository {
             id: dbProject.idproject,
             architectId: dbProject.architect,
             name: dbProject.name,
+            description: dbProject.description,
             latitude: dbProject.latitude,
             lengthCoord: dbProject.length,
             interestRate: dbProject.interest_rate,

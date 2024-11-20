@@ -35,10 +35,11 @@ function NewProjectForm() {
 
     return (
         <form className="grid gap-5 w-full max-w-sm" action={formAction}>
-            <NameField error={undefined} />
-            <InterestRateField error={undefined} />
-            <MinAmountRequiredField error={undefined} />
-            <MaxToInvestField error={undefined} />
+            <NameField />
+            <DescriptionField />
+            <InterestRateField />
+            <MinAmountRequiredField />
+            <MaxToInvestField />
             <ProjectDateSelector date={dateRange} onDateChange={setDateRange} />
             <SubmitButton />
             {errors?.general && (
@@ -54,7 +55,19 @@ function NameField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
             <Label htmlFor="name">Nombre completo del proyecto</Label>
-            <Input id="name" name="name" type="name" required />
+            <Input id="name" name="name" required />
+            {props.error && (
+                <p className="text-sm text-destructive">{props.error}</p>
+            )}
+        </div>
+    );
+}
+
+function DescriptionField(props: { error?: string }) {
+    return (
+        <div className="grid gap-2">
+            <Label htmlFor="name">Descripción</Label>
+            <Input id="name" name="name" required />
             {props.error && (
                 <p className="text-sm text-destructive">{props.error}</p>
             )}
@@ -69,7 +82,7 @@ function InterestRateField(props: { error?: string }) {
             <Input
                 id="interestRate"
                 name="interestRate"
-                type="interestRate"
+                type="number"
                 required
             />
             {props.error && (
@@ -88,7 +101,7 @@ function MinAmountRequiredField(props: { error?: string }) {
             <Input
                 id="minAmountRequired"
                 name="minAmountRequired"
-                type="minAmountRequired"
+                type="number"
                 required
             />
             {props.error && (
@@ -102,12 +115,7 @@ function MaxToInvestField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
             <Label htmlFor="maxToInvest">Presupuesto máximo</Label>
-            <Input
-                id="maxToInvest"
-                name="maxToInvest"
-                type="maxToInvest"
-                required
-            />
+            <Input id="maxToInvest" name="maxToInvest" type="number" required />
             {props.error && (
                 <p className="text-sm text-destructive">{props.error}</p>
             )}

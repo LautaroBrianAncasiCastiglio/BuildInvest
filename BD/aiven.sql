@@ -138,6 +138,9 @@ ALTER TABLE project
 MODIFY COLUMN total decimal(18,2);
 
 ALTER TABLE project MODIFY COLUMN total decimal(18,2) DEFAULT 0;
+
+ALTER TABLE project ADD COLUMN description MEDIUMTEXT NOT NULL;
+
 --
 -- Dumping data for table `users`
 --

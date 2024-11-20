@@ -4,6 +4,7 @@ interface Project {
     id: ProjectId;
     architectId: number;
     name: string;
+    description: string;
     latitude: string;
     lengthCoord: string;
     interestRate: number;

@@ -16,8 +16,13 @@ export async function createProject(
     dates: { from: Date; to: Date },
 ) {
     try {
-        const { name, interestRate, minAmountRequired, maxToInvest } =
-            Object.fromEntries(formData);
+        const {
+            name,
+            description,
+            interestRate,
+            minAmountRequired,
+            maxToInvest,
+        } = Object.fromEntries(formData);
 
         const projectRepository: ProjectRepository =
             new MySQLProjectRepository();
@@ -47,6 +52,7 @@ export async function createProject(
             architectId: architect.id,
             interestRate: Number(interestRate),
             name: name as string,
+            description: description as string,
             minAmountRequired: Number(minAmountRequired),
             maxToInvest: Number(maxToInvest),
             latitude: "4",
