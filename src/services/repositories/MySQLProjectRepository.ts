@@ -72,6 +72,14 @@ class MySQLProjectRepository implements ProjectRepository {
 
         return result.map((project) => this.adaptProject(project));
     }
+    async findLimited(limit: number): Promise<Project[]> {
+        const [result] = await MySQLPool.query<DBProject[]>(
+            "SELECT * FROM project LIMIT ?",
+            [limit],
+        );
+
+        return result.map((project) => this.adaptProject(project));
+    }
     async update(project: Project): Promise<Project> {
         await MySQLPool.execute(
             "UPDATE project SET architect = ?, name = ?, latitude = ?, length = ?, interest_rate = ?, min = ?, max = ?, start_date = ?, estimated_end = ?, total = ? WHERE idproject = ?",

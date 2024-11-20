@@ -7,6 +7,7 @@ interface ProjectRepository {
     findOne(projectId: ProjectId): Promise<Project | null>;
     findByArchitect(architectId: ArchitectId): Promise<Project[]>;
     findAll(): Promise<Project[]>;
+    findLimited(limit: number): Promise<Project[]>;
     update(project: Project): Promise<Project>;
     delete(projectId: ProjectId): Promise<void>;
 }
