@@ -1,4 +1,5 @@
 import HeroSection from "@/components/home/HeroSection";
+import RecentProjects from "@/components/home/RecentProjects";
 
 export const metadata = {
     title: "BuildInvest",
@@ -11,6 +12,7 @@ export default function Home() {
         <div className="flex flex-col min-h-screen">
             <main className="flex flex-col items-center">
                 <HeroSection />
+                <RecentProjects />
             </main>
         </div>
     );
