@@ -6,3 +6,4 @@
 -   Save project images in database
 -   Merge faq with home
 -   Add dashboard page
+-   Saldo de usuario
