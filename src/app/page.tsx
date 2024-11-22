@@ -1,3 +1,4 @@
+import FAQ from "@/components/home/FAQ";
 import HeroSection from "@/components/home/HeroSection";
 import RecentProjects from "@/components/home/RecentProjects";
 
@@ -13,6 +14,7 @@ export default function Home() {
             <main className="flex flex-col items-center">
                 <HeroSection />
                 <RecentProjects />
+                <FAQ />
             </main>
         </div>
     );
