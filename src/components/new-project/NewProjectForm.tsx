@@ -3,6 +3,7 @@ import ProjectDateSelector from "@/components/new-project/ProjectDateSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { createProject } from "@/services/actions/createProject";
 import { addDays } from "date-fns";
 import { useState } from "react";
@@ -66,8 +67,8 @@ function NameField(props: { error?: string }) {
 function DescriptionField(props: { error?: string }) {
     return (
         <div className="grid gap-2">
-            <Label htmlFor="name">Descripción</Label>
-            <Input id="name" name="name" required />
+            <Label htmlFor="description">Descripción</Label>
+            <Textarea id="description" name="description" required />
             {props.error && (
                 <p className="text-sm text-destructive">{props.error}</p>
             )}
