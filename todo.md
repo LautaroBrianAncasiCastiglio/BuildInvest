@@ -1,8 +1,8 @@
 -   Add sections to home
     -   Recent projects DONE
-    -   How it works
+    -   FAQ DONE
 -   Change hero content DONE
--   Save project description IN PROGRESS
+-   Save project description DONE
 -   Save project images in database
 -   Merge faq with home
 -   Add dashboard page
