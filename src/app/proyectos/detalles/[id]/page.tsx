@@ -71,6 +71,13 @@ async function ProjectDetails({ params }: { params: { id: string } }) {
                                 )}
                             </p>
                         </div>
+                        {project.description && (
+                            <div className="sm:col-span-2">
+                                <p className="text-base leading-relaxed">
+                                    {project.description}
+                                </p>
+                            </div>
+                        )}
                     </CardContent>
                 </Card>
                 <Card className="flex flex-col gap-4 p-2 w-full rounded-[28px]">
