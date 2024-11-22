@@ -19,6 +19,7 @@ function RegisterForm() {
         <form action={formAction} className="grid gap-5 w-full max-w-sm">
             <EmailField error={errors?.email} />
             <PasswordField error={errors?.password} />
+            <RepeatPasswordField error={errors?.repeatedPassword} />
             <SubmitButton />
             {errors?.general && (
                 <p className="text-sm text-destructive w-full text-center">
@@ -74,6 +75,27 @@ function PasswordField(props: { error?: string }) {
         </div>
     );
 }
+
+function RepeatPasswordField(props: { error?: string }) {
+    return (
+        <div className="grid gap-2">
+            <Label htmlFor="repeatedPassword">Repetir contraseña</Label>
+            <Input
+                id="repeatedPassword"
+                name="repeatedPassword"
+                placeholder="••••••••"
+                required
+                minLength={8}
+                maxLength={65}
+                type="password"
+            />
+            {props.error && (
+                <p className="text-sm text-destructive">{props.error}</p>
+            )}
+        </div>
+    );
+}
+
 function SubmitButton() {
     const { pending } = useFormStatus();
 
@@ -89,6 +111,7 @@ export type RegisterFormState = {
         general?: string;
         email?: string;
         password?: string;
+        repeatedPassword?: string;
     };
 } | void;
 

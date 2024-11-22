@@ -17,7 +17,8 @@ export async function registerUser(
     formData: FormData,
 ) {
     try {
-        const { email, password } = Object.fromEntries(formData);
+        const { email, password, repeatedPassword } =
+            Object.fromEntries(formData);
 
         const validatedEmail = UserEmailSchema.safeParse(email);
         if (!validatedEmail.success) {
@@ -33,6 +34,25 @@ export async function registerUser(
             return {
                 errors: {
                     password: validatedPassword.error.issues[0].message,
+                },
+            };
+        }
+
+        const validatedRepeatedPassword =
+            UserPasswordSchema.safeParse(repeatedPassword);
+        if (!validatedRepeatedPassword.success) {
+            return {
+                errors: {
+                    repeatedPassword:
+                        validatedRepeatedPassword.error.issues[0].message,
+                },
+            };
+        }
+
+        if (validatedPassword.data !== validatedRepeatedPassword.data) {
+            return {
+                errors: {
+                    password: "Las contraseñas no coinciden.",
                 },
             };
         }
