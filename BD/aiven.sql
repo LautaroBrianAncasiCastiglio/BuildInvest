@@ -141,6 +141,8 @@ ALTER TABLE project MODIFY COLUMN total decimal(18,2) DEFAULT 0;
 
 ALTER TABLE project ADD COLUMN description MEDIUMTEXT NOT NULL;
 
+ALTER TABLE users ADD COLUMN balance double(20, 4);
+
 --
 -- Dumping data for table `users`
 --

@@ -11,10 +11,20 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import { LuMenu } from "react-icons/lu";
+import { FaUser } from "react-icons/fa";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+    DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { logoutUser } from "@/services/actions/logoutUser";
 
 export default function InvestorHeader() {
     return (
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-[999999999]">
+        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-[999]">
             <HeaderNavigation />
             <ResponsiveHeaderNavigation />
         </header>
@@ -38,12 +48,6 @@ function HeaderNavigation() {
                     Proyectos
                 </Link>
                 <Link
-                    href="/inversiones"
-                    className="text-foreground transition-colors hover:text-foreground leading-none"
-                >
-                    Mis inversiones
-                </Link>
-                <Link
                     href="/sobre-nosotros"
                     className="text-foreground transition-colors hover:text-foreground leading-none"
                 >
@@ -55,17 +59,42 @@ function HeaderNavigation() {
                 >
                     Preguntas frecuentes
                 </Link>
-                <Link
-                    href="/arquitecto/nuevo"
-                    className="text-foreground transition-colors hover:text-foreground leading-none"
-                >
-                    Registrarme como arquitecto
-                </Link>
             </div>
             <div className="flex gap-4">
-                <LogoutButton />
+                <AccountButton />
             </div>
         </nav>
+    );
+}
+
+function AccountButton() {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button size="icon" variant={"outline"}>
+                    <FaUser size={20} />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="z-[99999]">
+                <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link href="/inversiones">
+                    <DropdownMenuItem>Mis inversiones</DropdownMenuItem>
+                </Link>
+                <Link href="/arquitecto/nuevo">
+                    <DropdownMenuItem>
+                        Registrarme como arquitecto
+                    </DropdownMenuItem>
+                </Link>
+                <form action={logoutUser}>
+                    <button type="submit" className="w-full h-full">
+                        <DropdownMenuItem className="bg-destructive/10 text-destructive">
+                            Cerrar sesión
+                        </DropdownMenuItem>
+                    </button>
+                </form>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }
 
@@ -91,7 +120,7 @@ function ResponsiveHeaderNavigation() {
                         </span>
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="right">
+                <SheetContent side="right" className="z-[9999]">
                     <SheetHeader>
                         <SheetTitle>BuildInvest</SheetTitle>
                         <SheetDescription>Menu de navegación</SheetDescription>
@@ -103,14 +132,6 @@ function ResponsiveHeaderNavigation() {
                                 className="text-foreground hover:text-foreground py-1"
                             >
                                 Proyectos
-                            </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                            <Link
-                                href="/inversiones"
-                                className="text-foreground hover:text-foreground py-1"
-                            >
-                                Mis inversiones
                             </Link>
                         </SheetClose>
                         <SheetClose asChild>
@@ -130,19 +151,47 @@ function ResponsiveHeaderNavigation() {
                             </Link>
                         </SheetClose>
                         <SheetClose asChild>
-                            <Link
-                                href="/arquitecto/nuevo"
-                                className="text-foreground hover:text-foreground py-1"
-                            >
-                                Registrarme como arquitecto
-                            </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                            <LogoutButton />
+                            <ResponsiveAccountButton />
                         </SheetClose>
                     </div>
                 </SheetContent>
             </Sheet>
         </nav>
+    );
+}
+
+function ResponsiveAccountButton() {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    className="w-full flex gap-2 justify-start text-base py-3"
+                    size={"lg"}
+                    variant={"outline"}
+                >
+                    <FaUser size={16} />
+                    Mi cuenta
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="z-[99999]">
+                <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link href="/inversiones">
+                    <DropdownMenuItem>Mis inversiones</DropdownMenuItem>
+                </Link>
+                <Link href="/arquitecto/nuevo">
+                    <DropdownMenuItem>
+                        Registrarme como arquitecto
+                    </DropdownMenuItem>
+                </Link>
+                <form action={logoutUser}>
+                    <button type="submit" className="w-full h-full">
+                        <DropdownMenuItem className="bg-destructive/10 text-destructive">
+                            Cerrar sesión
+                        </DropdownMenuItem>
+                    </button>
+                </form>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }
