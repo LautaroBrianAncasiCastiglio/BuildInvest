@@ -1,9 +1,9 @@
--   Add sections to home
+-   Add sections to home DONE
     -   Recent projects DONE
     -   FAQ DONE
 -   Change hero content DONE
 -   Save project description DONE
 -   Save project images in database
--   Merge faq with home
+-   Merge faq with home DONE
 -   Add dashboard page
 -   Saldo de usuario

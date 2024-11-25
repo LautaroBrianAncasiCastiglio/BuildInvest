@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/header/Header";
+import { Suspense } from "react";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import AppSidebar from "@/components/sidebar/AppSidebar";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -25,12 +28,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="es">
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
             >
-                <Header />
-                {children}
+                <SidebarProvider defaultOpen={true}>
+                    <Suspense>
+                        <Header />
+                    </Suspense>
+                    <AppSidebar />
+                    <SidebarInset>{children}</SidebarInset>
+                </SidebarProvider>
             </body>
         </html>
     );
