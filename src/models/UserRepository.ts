@@ -7,6 +7,7 @@ interface UserRepository {
     findOne(email: UserEmail): Promise<User | null>;
     update(user: User): Promise<User>;
     updateUsertype(email: UserEmail, usertype: UserType): Promise<void>;
+    addBalance(userEmail: UserEmail, amount: number): Promise<void>;
     delete(email: UserEmail): Promise<void>;
 }
 

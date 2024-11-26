@@ -13,6 +13,7 @@ interface DBUser extends RowDataPacket {
     password: string;
     create_time: Date;
     usertype: number;
+    balance: string;
 }
 
 class MySQLUserRepository implements UserRepository {
@@ -49,7 +50,7 @@ class MySQLUserRepository implements UserRepository {
     async findAll(): Promise<User[]> {
         try {
             const [rows] = await MySQLPool.execute<DBUser[]>(
-                "SELECT `username`, `email`, `password`, `create_time` FROM users",
+                "SELECT * FROM users",
             );
             return rows.map((row) => ({
                 username: row.username,
@@ -58,6 +59,7 @@ class MySQLUserRepository implements UserRepository {
                 createdAt: row.create_time,
                 usertype:
                     row.usertype === 1 ? UserType.investor : UserType.architect,
+                balance: parseFloat(row.balance),
             }));
         } catch (err) {
             throw err;
@@ -74,7 +76,7 @@ class MySQLUserRepository implements UserRepository {
     async findOne(email: UserEmail): Promise<User | null> {
         try {
             const [row] = await MySQLPool.execute<DBUser[]>(
-                "SELECT `username`, `email`, `password`, `create_time`, `usertype` FROM users WHERE `email` = ? LIMIT 1",
+                "SELECT * FROM users WHERE `email` = ? LIMIT 1",
                 [email],
             );
             const [foundUser] = row;
@@ -92,6 +94,7 @@ class MySQLUserRepository implements UserRepository {
                     foundUser.usertype === 1
                         ? UserType.investor
                         : UserType.architect,
+                balance: parseFloat(foundUser.balance),
             };
         } catch (err) {
             throw err;
@@ -137,6 +140,17 @@ class MySQLUserRepository implements UserRepository {
             await MySQLPool.execute(
                 "UPDATE users SET `usertype` = ? WHERE `email` = ?",
                 [usertype === UserType.architect ? 2 : 1, email],
+            );
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async addBalance(email: UserEmail, amount: number): Promise<void> {
+        try {
+            await MySQLPool.execute(
+                "UPDATE users SET `balance` = `balance` + ? WHERE `email` = ?",
+                [amount, email],
             );
         } catch (err) {
             throw err;
