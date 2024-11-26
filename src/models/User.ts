@@ -2,6 +2,7 @@ export type UserUsername = string;
 export type UserEmail = string;
 export type UserPassword = string;
 export type UserCreatedAt = Date;
+export type UserBalance = number;
 
 interface User {
     username: UserUsername;
@@ -9,6 +10,7 @@ interface User {
     password: UserPassword;
     createdAt: UserCreatedAt;
     usertype: UserType;
+    balance: UserBalance;
 }
 
 export enum UserType {

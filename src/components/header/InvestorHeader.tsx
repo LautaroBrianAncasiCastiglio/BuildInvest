@@ -1,4 +1,3 @@
-import LogoutButton from "@/components/header/LogoutButton";
 import { Button } from "@/components/ui/button";
 import {
     Sheet,
@@ -15,8 +14,6 @@ import { FaUser } from "react-icons/fa";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
     DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
@@ -76,10 +73,8 @@ function AccountButton() {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="z-[99999]">
-                <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <Link href="/inversiones">
-                    <DropdownMenuItem>Mis inversiones</DropdownMenuItem>
+                <Link href="/cuenta">
+                    <DropdownMenuItem>Mi cuenta</DropdownMenuItem>
                 </Link>
                 <Link href="/arquitecto/nuevo">
                     <DropdownMenuItem>
@@ -174,10 +169,8 @@ function ResponsiveAccountButton() {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="z-[99999]">
-                <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <Link href="/inversiones">
-                    <DropdownMenuItem>Mis inversiones</DropdownMenuItem>
+                <Link href="/cuenta">
+                    <DropdownMenuItem>Mi cuenta</DropdownMenuItem>
                 </Link>
                 <Link href="/arquitecto/nuevo">
                     <DropdownMenuItem>
