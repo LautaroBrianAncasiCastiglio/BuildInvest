@@ -1,9 +1,11 @@
 "use server";
 
 import type { NewArchitectFormState } from "@/components/new-architect/NewArchitectForm";
+import type InvestmentRepository from "@/models/InvestmentRepository";
 import { UserType } from "@/models/User";
 import type UserRepository from "@/models/UserRepository";
 import MySQLArchitectRepository from "@/services/repositories/MySQLArchitectRepository";
+import MySQLInvestmentRepository from "@/services/repositories/MySQLInvestmentRepository";
 import MySQLUserRepository from "@/services/repositories/MySQLUserRepository";
 import {
     ArchitectDniSchema,
@@ -67,6 +69,19 @@ export async function registerArchitect(
             throw new Error(
                 "No se puede registrar un arquitecto sin iniciar sesión.",
             );
+
+        const investmentRepository: InvestmentRepository =
+            new MySQLInvestmentRepository();
+        const investments = await investmentRepository.findByEmail(email);
+
+        if (investments.length > 0) {
+            return {
+                errors: {
+                    general:
+                        "No puedes registrarte como arquitecto si tienes inversiones realizadas.",
+                },
+            };
+        }
 
         await architectRepository.create({
             id: 0,
