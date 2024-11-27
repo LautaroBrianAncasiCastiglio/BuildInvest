@@ -1,4 +1,3 @@
-import LogoutButton from "@/components/header/LogoutButton";
 import { Button } from "@/components/ui/button";
 import {
     Sheet,
@@ -11,10 +10,18 @@ import {
 } from "@/components/ui/sheet";
 import Link from "next/link";
 import { LuMenu } from "react-icons/lu";
+import { FaUser } from "react-icons/fa";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+    DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { logoutUser } from "@/services/actions/logoutUser";
 
 export default function ArchitectHeader() {
     return (
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-[999999999]">
+        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-[999]">
             <HeaderNavigation />
             <ResponsiveHeaderNavigation />
         </header>
@@ -54,9 +61,33 @@ function HeaderNavigation() {
                 <Button asChild>
                     <Link href="/proyectos/nuevo">Nuevo proyecto</Link>
                 </Button>
-                <LogoutButton />
+                <AccountButton />
             </div>
         </nav>
+    );
+}
+
+function AccountButton() {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button size="icon" variant={"outline"}>
+                    <FaUser size={20} />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="z-[99999]">
+                <Link href="/cuenta/arquitecto">
+                    <DropdownMenuItem>Mis proyectos</DropdownMenuItem>
+                </Link>
+                <form action={logoutUser}>
+                    <button type="submit" className="w-full h-full">
+                        <DropdownMenuItem className="bg-destructive/10 text-destructive">
+                            Cerrar sesión
+                        </DropdownMenuItem>
+                    </button>
+                </form>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }
 
@@ -82,7 +113,7 @@ function ResponsiveHeaderNavigation() {
                         </span>
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="right">
+                <SheetContent side="right" className="z-[9999]">
                     <SheetHeader>
                         <SheetTitle>BuildInvest</SheetTitle>
                         <SheetDescription>Menu de navegación</SheetDescription>
@@ -120,11 +151,44 @@ function ResponsiveHeaderNavigation() {
                             </Button>
                         </SheetClose>
                         <SheetClose asChild>
-                            <LogoutButton className="w-full" />
+                            <ResponsiveAccountButton />
                         </SheetClose>
                     </div>
                 </SheetContent>
             </Sheet>
         </nav>
+    );
+}
+
+function ResponsiveAccountButton() {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    className="w-full flex gap-2 justify-start text-base py-3"
+                    size={"lg"}
+                    variant={"outline"}
+                >
+                    <FaUser size={16} />
+                    Mi cuenta
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="z-[99999] flex flex-col">
+                <SheetClose>
+                    <Link href="/cuenta/arquitecto">
+                        <DropdownMenuItem>Mis proyectos</DropdownMenuItem>
+                    </Link>
+                </SheetClose>
+                <SheetClose>
+                    <form action={logoutUser}>
+                        <button type="submit" className="w-full h-full">
+                            <DropdownMenuItem className="bg-destructive/10 text-destructive">
+                                Cerrar sesión
+                            </DropdownMenuItem>
+                        </button>
+                    </form>
+                </SheetClose>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }
