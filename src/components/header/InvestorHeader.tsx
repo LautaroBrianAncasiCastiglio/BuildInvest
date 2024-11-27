@@ -169,21 +169,27 @@ function ResponsiveAccountButton() {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="z-[99999]">
-                <Link href="/cuenta">
-                    <DropdownMenuItem>Mi cuenta</DropdownMenuItem>
-                </Link>
-                <Link href="/arquitecto/nuevo">
-                    <DropdownMenuItem>
-                        Registrarme como arquitecto
-                    </DropdownMenuItem>
-                </Link>
-                <form action={logoutUser}>
-                    <button type="submit" className="w-full h-full">
-                        <DropdownMenuItem className="bg-destructive/10 text-destructive">
-                            Cerrar sesión
+                <SheetClose>
+                    <Link href="/cuenta">
+                        <DropdownMenuItem>Mi cuenta</DropdownMenuItem>
+                    </Link>
+                </SheetClose>
+                <SheetClose>
+                    <Link href="/arquitecto/nuevo">
+                        <DropdownMenuItem>
+                            Registrarme como arquitecto
                         </DropdownMenuItem>
-                    </button>
-                </form>
+                    </Link>
+                </SheetClose>
+                <SheetClose>
+                    <form action={logoutUser}>
+                        <button type="submit" className="w-full h-full">
+                            <DropdownMenuItem className="bg-destructive/10 text-destructive">
+                                Cerrar sesión
+                            </DropdownMenuItem>
+                        </button>
+                    </form>
+                </SheetClose>
             </DropdownMenuContent>
         </DropdownMenu>
     );
