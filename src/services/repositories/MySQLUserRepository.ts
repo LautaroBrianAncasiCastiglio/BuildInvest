@@ -100,7 +100,6 @@ class MySQLUserRepository implements UserRepository {
             throw err;
         }
     }
-
     /**
      * Update a user.
      *
@@ -108,13 +107,30 @@ class MySQLUserRepository implements UserRepository {
      * @returns The updated user.
      * @throws If the underlying MySQL operation fails.
      */
-    async update(user: User): Promise<User> {
+    async update(user: Partial<User> & Pick<User, "email">): Promise<void> {
         try {
-            await MySQLPool.execute(
-                "UPDATE users SET `username` = ?, `password` = ? WHERE `email` = ?",
-                [user.username, user.password, user.email],
+            const preparedUser = {
+                username: user.username,
+                password: user.password,
+                usertype:
+                    user.usertype === undefined
+                        ? undefined
+                        : user.usertype === UserType.architect
+                        ? 2
+                        : 1,
+                balance: user.balance,
+            };
+
+            const filteredUser = Object.fromEntries(
+                Object.entries(preparedUser).filter(
+                    ([_, value]) => value !== undefined,
+                ),
             );
-            return user;
+
+            await MySQLPool.query("UPDATE users SET ? WHERE `email` = ?", [
+                filteredUser,
+                user.email,
+            ]);
         } catch (err) {
             throw err;
         }

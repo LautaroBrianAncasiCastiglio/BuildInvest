@@ -8,6 +8,8 @@ import type { InvestProjectFormState } from "@/components/invest-project/InvestP
 import type Project from "@/models/Project";
 import type InvestmentRepository from "@/models/InvestmentRepository";
 import MySQLInvestmentRepository from "@/services/repositories/MySQLInvestmentRepository";
+import MySQLUserRepository from "@/services/repositories/MySQLUserRepository";
+import type UserRepository from "@/models/UserRepository";
 
 export async function investProject(
     project: Project,
@@ -54,10 +56,28 @@ export async function investProject(
                 },
             };
 
+        const userRepository: UserRepository = new MySQLUserRepository();
+        const currentUser = await userRepository.findOne(email!);
+
+        if (!currentUser?.balance || currentUser?.balance! < amount)
+            return {
+                errors: {
+                    general: "No tienes suficiente dinero para invertir",
+                },
+            };
+
         await InvestmentRepository.investProject(project, email!, amount);
+
+        console.log(currentUser);
+
+        await userRepository.update({
+            email: email!,
+            balance: currentUser?.balance! - amount,
+        });
 
         revalidatePath(`/proyectos`);
         revalidatePath(`/proyectos/detalles/${project.id}`);
+        revalidatePath(`/cuenta`);
     } catch (e) {
         console.error(e);
         return {
@@ -66,5 +86,5 @@ export async function investProject(
             },
         };
     }
-    redirect(`/proyectos/detalles/${project.id}`);
+    redirect(`/cuenta`);
 }

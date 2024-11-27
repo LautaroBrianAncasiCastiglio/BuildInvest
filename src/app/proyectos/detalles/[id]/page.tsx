@@ -108,6 +108,7 @@ async function ProjectDetails({ params }: { params: { id: string } }) {
                             <Button
                                 className="w-full text-base font-bold"
                                 size={"lg"}
+                                asChild
                             >
                                 <Link
                                     href={`/proyectos/invertir/${project.id}`}
