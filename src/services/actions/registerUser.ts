@@ -69,6 +69,7 @@ export async function registerUser(
             username: "",
             createdAt: new Date(),
             usertype: UserType.investor,
+            balance: 0,
         });
 
         await SessionManager.createSession(
