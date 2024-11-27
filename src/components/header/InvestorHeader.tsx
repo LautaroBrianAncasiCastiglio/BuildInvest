@@ -76,7 +76,7 @@ function AccountButton() {
                 <Link href="/cuenta">
                     <DropdownMenuItem>Mi cuenta</DropdownMenuItem>
                 </Link>
-                <Link href="/arquitecto/nuevo">
+                <Link href="/cuenta/arquitecto/nuevo">
                     <DropdownMenuItem>
                         Registrarme como arquitecto
                     </DropdownMenuItem>
@@ -175,7 +175,7 @@ function ResponsiveAccountButton() {
                     </Link>
                 </SheetClose>
                 <SheetClose>
-                    <Link href="/arquitecto/nuevo">
+                    <Link href="/cuenta/arquitecto/nuevo">
                         <DropdownMenuItem>
                             Registrarme como arquitecto
                         </DropdownMenuItem>
